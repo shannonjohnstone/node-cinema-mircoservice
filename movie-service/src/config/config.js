@@ -1,7 +1,8 @@
+
 const dbSettings = {
   db: process.env.DB || 'movies',
-  user: process.env.DB_USER || 'shannonmovies',
-  password: process.env.DB_PASS || 'shannonpassword123',
+  user: process.env.DB_USER || 'myUserAdmin',
+  password: process.env.DB_PASS || 'abc123',
   repl: process.env.DB_REPLS || 'rs1',
   servers: (process.env.DB_SERVERS) ? process.env.DB_SERVERS.split(' ') : [
     '192.168.99.100:27017',
@@ -18,22 +19,20 @@ const dbSettings = {
   serverParameters: () => ({
     autoReconnect: true,
     poolSize: 10,
-    socketoptions: {
-      keepAlive: 300,
-      connectTimeoutMS: 30000,
-      socketTimeoutMS: 30000
-    }
+    keepAlive: 300,
+    connectTimeoutMS: 30000,
+    socketTimeoutMS: 30000
   }),
   replsetParameters: (replset = 'rs1') => ({
     replicaSet: replset,
     ha: true,
-    haInterval: 10000,
-    poolSize: 10,
-    socketoptions: {
-      keepAlive: 300,
-      connectTimeoutMS: 30000,
-      socketTimeoutMS: 30000
-    }
+    haInterval: 10000
+    // poolSize: 10,
+    // socketoptions: {
+    //   keepAlive: 300,
+    //   connectTimeoutMS: 30000,
+    //   socketTimeoutMS: 30000
+    // }
   })
 }
 
@@ -45,3 +44,11 @@ module.exports = {
   dbSettings,
   serverSettings
 }
+
+// db.createUser(
+//   {
+//     user: "myUserAdmin",
+//     pwd: "abc123",
+//     roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+//   }
+// )
