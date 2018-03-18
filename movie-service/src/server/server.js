@@ -9,6 +9,7 @@ const start = ({ port, repo } = {}) => {
     if (!port) return reject(new Error('The server must be started on an avaliable port'))
 
     const app = express()
+    app.disable('etag')
     app.use(morgan('dev'))
     app.use(helmet())
     app.use((err, req, res, next) => {
@@ -17,7 +18,7 @@ const start = ({ port, repo } = {}) => {
     })
 
     // TODO: api to go here, current home route is just temp to see things are working
-    app.get('/', (req, res) => res.json({ api: 'cinema v1' }))
+    app.get('/', (req, res) => res.json({ api: 'cinema movie-service' }))
     api(app, { repo })
 
     const server = app.listen(port, () => {

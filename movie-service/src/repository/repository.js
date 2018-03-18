@@ -1,5 +1,4 @@
 const repository = (db) => {
-
   const collection = db.collection('movies')
 
   const getAllMovies = () => {
