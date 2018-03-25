@@ -1,0 +1,66 @@
+swagger: "2.0"
+info:
+  description: "Movies service test"
+  version: "1.0.0"
+  title: "Movies service"
+  termsOfService: "TBC"
+  contact:
+    email: "shannon@shannonjohnstone.coma.au"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "movies-service"
+basePath: "/v1"
+tags:
+  - name: "movies"
+    description: "Everything about movies"
+schemes:
+  - "http"
+paths:
+  /movies:
+    get:
+      tags:
+        - "movies"
+      summary: "Get all movies"
+      description: "Get all movies listed in the movies database"
+      operationId: "getMovies"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: 'OK'
+          schema:
+            type: array
+            items: {
+              $ref: '#/definitions/Movie'
+            }
+definitions:
+  Movie:
+    type: 'object'
+    properties:
+      id:
+        type: string
+        example: '123'
+      title:
+        type: string
+        example: 'Assasins Creed'
+      runtime:
+        type: number
+        example: 115
+      format:
+        type: string
+        example: 'IMAX'
+      plot:
+        type: string
+        example: 'Lorem ipsum plot text'
+      releaseYear:
+        type: number
+        example: 2010
+      releaseMonth:
+        type: number
+        example: 01
+      releaseDay:
+        type: number
+        example: 01
