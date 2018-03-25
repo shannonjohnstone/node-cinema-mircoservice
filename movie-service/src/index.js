@@ -2,6 +2,7 @@ const { EventEmitter } = require('events')
 const server = require('./server/server')
 const repository = require('./repository/repository')
 const config = require('./config')
+const { events } = require('./constants')
 const mediator = new EventEmitter()
 
 // logging when service starts
@@ -13,24 +14,17 @@ process.on('uncaughtException', (err) => {
   console.error('Unhandled Rejection', err)
 })
 
-async function start (port, repo) {
-  try {
-    return await server.start({ port, repo })
-  } catch (e) {
-    console.log(e)
-  }
-}
-
 // event listener for when respoitory has been connected
-mediator.on('db.ready', async (db) => {
+mediator.on(events.DB_READY, async (db) => {
   let rep
   let app
 
   try {
     const repo = await repository.connect(db)
     console.log('Repository Connected. Starting server')
+
     rep = repo
-    app = await start(config.serverSettings.port, repo)
+    app = await server.start({ port: config.serverSettings.port, repo })
   } catch (e) {
     console.log(`Server start error, err: ${e}`)
   }
@@ -41,7 +35,7 @@ mediator.on('db.ready', async (db) => {
   })
 })
 
-mediator.on('db.error', (err) => console.error(err))
+mediator.on(events.DB_ERROR, (err) => console.error(err))
 
 config.db.connect(config.dbSettings, mediator)
-mediator.emit('boot.ready')
+mediator.emit(events.BOOT_READY)

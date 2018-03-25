@@ -1,38 +1,22 @@
 
 const dbSettings = {
-  db: process.env.DB || 'movies',
-  user: process.env.DB_USER || 'myUserAdmin',
-  password: process.env.DB_PASS || 'abc123',
-  repl: process.env.DB_REPLS || 'rs1',
+  db: process.env.MONGODB_APPLICATION_DATABASE || 'movies',
+  username: process.env.MONGODB_APPLICATION_USER || 'shannon',
+  password: process.env.MONGODB_APPLICATION_PASS || 'abc123',
   servers: (process.env.DB_SERVERS) ? process.env.DB_SERVERS.split(' ') : [
-    '192.168.99.100:27017',
-    '192.168.99.101:27017',
-    '192.168.99.102:27017'
+    'mongorsn1:27017'
   ],
-  dbParameters: () => ({
+  parameters: () => ({
     w: 'majority',
-    wtimeout: 10000,
+    wtimeout: 60000,
     j: true,
     readPreference: 'ReadPreference.SECONDARY_PREFERRED',
-    native_parser: false
-  }),
-  serverParameters: () => ({
+    native_parser: false,
     autoReconnect: true,
     poolSize: 10,
     keepAlive: 300,
-    connectTimeoutMS: 30000,
-    socketTimeoutMS: 30000
-  }),
-  replsetParameters: (replset = 'rs1') => ({
-    replicaSet: replset,
-    ha: true,
-    haInterval: 10000
-    // poolSize: 10,
-    // socketoptions: {
-    //   keepAlive: 300,
-    //   connectTimeoutMS: 30000,
-    //   socketTimeoutMS: 30000
-    // }
+    connectTimeoutMS: 60000,
+    socketTimeoutMS: 60000
   })
 }
 
@@ -44,11 +28,3 @@ module.exports = {
   dbSettings,
   serverSettings
 }
-
-// db.createUser(
-//   {
-//     user: "myUserAdmin",
-//     pwd: "abc123",
-//     roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
-//   }
-// )
