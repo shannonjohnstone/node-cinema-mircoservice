@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+  service:
+    container_name: movies_service
+    build: .
+    command: npm run start:dev
+    volumes:
+      - .:/usr/app
+      - /usr/app/node_modules
+    ports:
+      - "${MOVIES_SERVICE_EXPOSED_PORT}:3000"
+    env_file: .env
+    links:
+      - mongodb:mongo
+    depends_on:
+      - mongodb
+
+  mongodb:
+    container_name: monogo_container
+    build: ./mongo/
+    ports:
+      - "${MONGO_EXPOSED_PORT}:27017"
+    env_file: .env
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./mongo/data:/data/db

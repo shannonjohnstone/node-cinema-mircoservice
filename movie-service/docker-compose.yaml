@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  mongodb:
+    container_name: monogo_container
+    image: mymongodb
+    ports:
+      - "${MONGO_EXPOSED_PORT}:27017"
+    env_file: .env
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /Users/shannonjohnstone/development/rd/node/mongo/data2:/data/db
+
+  movies-service:
+    container_name: movies-service
+    image: movies-service
+    env_file: .env
+    links:
+      - mongodb:mongo
+    depends_on:
+      - mongodb
+    ports:
+      - "${MOVIES_SERVICE_EXPOSED_PORT}:3000"
