@@ -19,7 +19,7 @@ const repository = (db) => {
     })
   }
 
-  const getMoviePremieres = () => {
+  const getMoviePremiers = () => {
     return new Promise((resolve, reject) => {
       const movies = []
       const currentDay = new Date()
@@ -68,7 +68,7 @@ const repository = (db) => {
   const disconnect = () => db.close()
 
   return {
-    getMoviePremieres,
+    getMoviePremiers,
     getAllMovies,
     getMovieById,
     disconnect

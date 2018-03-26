@@ -11,12 +11,12 @@ module.exports = (repo) => {
         next()
       }
     },
-    async getPremieres (req, res, next) {
+    async getMoviePremiers (req, res, next) {
       try {
-        const premieres = await repo.getMoviePremieres()
+        const premieres = await repo.getMoviePremiers()
         res.status(status.OK).json(premieres)
       } catch (e) {
-        console.log(`Error occured in api/movies/premieres: getPremieres, err: ${e}`)
+        console.log(`Error occured in api/movies/premieres: getMoviePremiers, err: ${e}`)
         next()
       }
     },
