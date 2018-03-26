@@ -19,7 +19,7 @@ const repository = (db) => {
     })
   }
 
-  const getMoviePremiers = () => {
+  const getMoviePremieres = () => {
     return new Promise((resolve, reject) => {
       const movies = []
       const currentDay = new Date()
@@ -29,8 +29,7 @@ const repository = (db) => {
           $lte: currentDay.getFullYear()
         },
         releaseMonth: {
-          $gte: currentDay.getMonth() + 1,
-          $lte: currentDay.getMonth() + 2
+          $lte: currentDay.getMonth() + 1
         },
         releaseDay: {
           $lte: currentDay.getDate()
@@ -69,7 +68,7 @@ const repository = (db) => {
   const disconnect = () => db.close()
 
   return {
-    getMoviePremiers,
+    getMoviePremieres,
     getAllMovies,
     getMovieById,
     disconnect

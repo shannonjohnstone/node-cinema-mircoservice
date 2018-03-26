@@ -7,6 +7,7 @@ const mediator = new EventEmitter()
 
 // logging when service starts
 console.log('--- Movies Service ---')
+console.log(`--- ${config.serverSettings.nodeEnv} ---`)
 console.log('Connecting to movies repository...')
 
 // log unhandled execeptions
@@ -24,7 +25,7 @@ mediator.on(events.DB_READY, async (db) => {
     console.log('Repository Connected. Starting server')
 
     rep = repo
-    app = await server.start({ port: config.serverSettings.port, repo })
+    app = await server.start(config.serverSettings, repo)
   } catch (e) {
     console.log(`Server start error, err: ${e}`)
   }

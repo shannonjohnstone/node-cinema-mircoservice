@@ -3,5 +3,9 @@ const controllers = require('./controllers')
 module.exports = (app, options) => {
   const { repo } = options
 
-  app.get('/movies', (req, res, next) => controllers.getAllMovies(req, res, next, repo))
+  const { getAllMovies, getPremieres, getMovieById } = controllers(repo)
+
+  app.get('/movies', getAllMovies)
+  app.get('/movies/premieres', getPremieres)
+  app.get('/movies/:id', getMovieById)
 }

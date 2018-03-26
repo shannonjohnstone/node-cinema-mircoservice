@@ -3,10 +3,13 @@ const morgan = require('morgan')
 const helmet = require('helmet')
 const api = require('../api/movies')
 
-const start = ({ port, repo } = {}) => {
+const start = (serverSettings = {}, repo) => {
+  const { port, nodeEnv } = serverSettings
+
   return new Promise((resolve, reject) => {
     if (!repo) return reject(new Error('The server must be started with a connected repository'))
     if (!port) return reject(new Error('The server must be started on an avaliable port'))
+    if (!nodeEnv) return reject(new Error('The server must be started with a NODE_ENV value'))
 
     const app = express()
     app.disable('etag')

@@ -21,7 +21,8 @@ const dbSettings = {
 }
 
 const serverSettings = {
-  port: process.env.PORT || 3000
+  port: process.env.PORT || 3000,
+  nodeEnv: process.env.NODE_ENV
 }
 
 module.exports = {
