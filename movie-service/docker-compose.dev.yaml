@@ -1,16 +1,19 @@
 version: '2'
 
 services:
-  service:
+  movies-service:
     container_name: movies_service
     build: .
     command: npm run start:dev
+    # mapping the application src and modules allow for updating the src code and seeing those update without the need of re building the image
     volumes:
       - .:/usr/app
       - /usr/app/node_modules
     ports:
       - "${MOVIES_SERVICE_EXPOSED_PORT}:3000"
     env_file: .env
+    environment:
+      NODE_ENV: 'development'
     links:
       - mongodb:mongo
     depends_on:
@@ -22,6 +25,7 @@ services:
     ports:
       - "${MONGO_EXPOSED_PORT}:27017"
     env_file: .env
+    # mapping mongo data, `./mongo/data:/data/db`allows the database to persist it's when taken down during local development
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./mongo/data:/data/db
