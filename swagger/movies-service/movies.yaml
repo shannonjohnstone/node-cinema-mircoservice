@@ -24,8 +24,6 @@ paths:
       summary: "Get all movies"
       description: "Get all movies listed in the movies database"
       operationId: "getMovies"
-      consumes:
-        - "application/json"
       produces:
         - "application/json"
       responses:
@@ -36,6 +34,32 @@ paths:
             items: {
               $ref: '#/definitions/Movie'
             }
+  /movies/premieres:
+    get:
+      tags:
+        - "movies"
+      summary: 'Get movie premieres'
+      consumes:
+        - "application/json"
+      responses:
+        200:
+          description: 'OK'
+          schema:
+            type: array
+            items: {
+              $ref: '#/definitions/Movie'
+            }
+  /movies/:id:
+    get:
+      tags:
+        - 'movies'
+      responses:
+        200:
+          description: 'OK'
+          schema: {
+            $ref: '#/definitions/Movie'
+          }
+
 definitions:
   Movie:
     type: 'object'
