@@ -22,7 +22,8 @@ const dbSettings = {
 
 const serverSettings = {
   port: process.env.PORT || 3000,
-  nodeEnv: process.env.NODE_ENV
+  nodeEnv: process.env.NODE_ENV,
+  ssl: require('./ssl')
 }
 
 module.exports = {

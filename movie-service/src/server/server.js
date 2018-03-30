@@ -1,10 +1,11 @@
 const express = require('express')
 const morgan = require('morgan')
 const helmet = require('helmet')
+const spdy = require('spdy')
 const api = require('../api/movies')
 
 const start = (serverSettings = {}, repo) => {
-  const { port, nodeEnv } = serverSettings
+  const { port, nodeEnv, ssl } = serverSettings
 
   return new Promise((resolve, reject) => {
     if (!repo) return reject(new Error('The server must be started with a connected repository'))
@@ -24,7 +25,7 @@ const start = (serverSettings = {}, repo) => {
     app.get('/', (req, res) => res.json({ api: 'cinema movie-service' }))
     api(app, { repo })
 
-    const server = app.listen(port, () => {
+    const server = spdy.createServer(ssl, app).listen(port, () => {
       console.log(`Server start at http://localhost:${port}`)
       return resolve(server)
     })
